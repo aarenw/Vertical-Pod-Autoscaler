@@ -1,4 +1,5 @@
 # Product Context
+[English Version](README_en.md)
 
 在 OpenShift 中使用 **Vertical Pod Autoscaler (VPA)** Operator 可以自动调整 Pod 的资源请求（Requests）和限制（Limits），从而提高集群资源利用率并防止应用因内存不足（OOM）而崩溃。
 
@@ -49,7 +50,7 @@ spec:
   # 资源约束（可选）
   resourcePolicy:
     containerPolicies:
-      - containerName: '*'
+      - containerName: 
         minAllowed:
           cpu: 100m
           memory: 128Mi
@@ -91,10 +92,12 @@ oc get vpa my-app-vpa -n my-project -o yaml
 * **与 HPA 冲突**：不要在同一个 Pod 上同时针对 **CPU 或内存** 使用 VPA 和 Horizontal Pod Autoscaler (HPA)。如果非要同时使用，请确保 HPA 基于自定义指标（如每秒请求数），而 VPA 负责资源调整。
 * **Pod 重启**：在 `Auto` 模式下，VPA 调整资源会导致 Pod 重启。请确保你的应用具备高可用性（多副本）且配置了合理的 `PodDisruptionBudget`。
 * **监控数据**：VPA 依赖 `Metrics Server`。如果集群监控插件未正常工作，VPA 将无法获取数据提供建议。
-
+* 在生产环境中，先开启 **观察模式**（updateMode: "Off"）可以让你在不触发 Pod 重启的情况下，通过 VPA 的数据分析找出应用真实的资源画像。
 ---
 
-**您是想在生产环境中自动应用这些建议，还是目前仅希望通过 VPA 获取资源使用的观察建议？** 如果需要，我可以为您演示如何配置 `updateMode: "Off"` 来进行无风险的监控。
+## 5. 辅助脚本 (Helper Scripts)
 
+为了简化 VPA 的创建和删除过程，我们提供了两个辅助脚本。您可以点击以下链接查看详细使用指南：
 
-
+*   [`create-vpa.sh` - 创建 VPA 脚本使用指南](create-vpa-guide.md)
+*   [`delete-vpa.sh` - 删除 VPA 脚本使用指南](delete-vpa-guide.md)
