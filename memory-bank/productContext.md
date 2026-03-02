@@ -95,6 +95,3 @@ oc get vpa my-app-vpa -n my-project -o yaml
 ---
 
 **您是想在生产环境中自动应用这些建议，还是目前仅希望通过 VPA 获取资源使用的观察建议？** 如果需要，我可以为您演示如何配置 `updateMode: "Off"` 来进行无风险的监控。
-
-
-
