@@ -95,6 +95,7 @@ oc get vpa my-app-vpa -n my-project -o yaml
 * 在生产环境中，先开启 **观察模式**（updateMode: "Off"）可以让你在不触发 Pod 重启的情况下，通过 VPA 的数据分析找出应用真实的资源画像。
 * VPA 需要大约 1-5 分钟 的时间来收集 Metrics Server 的历史数据并生成初步建议。
 * VPA默认查看过去 8 天的 Prometheus/Metrics-server 历史数据。如果你的应用刚刚启动，建议运行 24 小时后再观察，这样数据会更精准（包含业务高峰期）。
+* **唯一性原则**：一个 Pod 集合只能被一个 VPA 观察/控制。不要为同一个 Deployment 创建两个 VPA。
 ---
 
 ## 5. 辅助脚本 (Helper Scripts)
